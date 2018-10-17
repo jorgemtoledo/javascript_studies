@@ -1,4 +1,5 @@
 Vue.component('my-nav', {
+    mixins: [ Mixin ],
     props: {
         message: {
             type: String,

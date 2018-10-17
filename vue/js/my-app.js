@@ -1,7 +1,7 @@
 new Vue({
     el: '#app',
     data: {
-        message: '',
+        message: 'Teste hoocks e Ciclo de vida dos componentes',
         open: false
     },
     methods: {
