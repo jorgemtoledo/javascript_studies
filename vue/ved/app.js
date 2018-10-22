@@ -1,8 +1,10 @@
+
 new Vue({
   el: '#beerApp',
 
   data: {
-    cervejarias: []
+    cervejarias: [],
+    openDetails: []
   },
 
   methods:{
@@ -13,6 +15,49 @@ new Vue({
       }).catch(e => {
         console.log(e)
       })
+    },
+
+    doOpenDetails: function(ev, id)
+    {
+      // window.console.log(ev, id);
+      // Para o evento seguir o link
+      ev.preventDefault();
+
+      index = this.openDetails.indexOf(id);
+
+      if(index > -1)
+      {
+        this.openDetails.splice(index, 1);
+      } else {
+        this.openDetails.push(id);
+      }
+    },
+
+    doOpenAllDetails: function(ev)
+    {
+      // window.console.log(ev);
+      ev.preventDefault();
+      let self = this;
+
+      // =============Foi alterado pelo lodash================
+      // let ids = [];
+      // self.cervejarias.map(function(cervejaria)
+      // {
+      //   ids.push(cervejaria.id);
+      // });
+      // ====================================================
+
+      let ids = _.map(self.cervejarias, 'id');
+
+      if(self.openDetails.length > 0)
+      {
+        self.openDetails = [];
+      } else {
+        let id;
+        for (id = 1; id < ids.length; id++) {
+          self.openDetails.push(id);
+        }
+      }
     }
   },
 
