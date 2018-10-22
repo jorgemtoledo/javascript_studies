@@ -40,14 +40,17 @@
             <td>{{ cervejaria.country }}</td>
             <td>{{ cervejaria.last_mod }}</td>
             <td>
+              <a href="#"  v-show="cervejaria.descript == ''">
+                <i class="fa fa-plus-square" style="opacity:0.3"></i>
+              </a>
               <a href="#"  v-on:click="doOpenDetails($event, cervejaria.id)">
                 <!-- <i class="fa fa-plus-square"></i> -->
-                <i v-if="openDetails.indexOf(cervejaria.id) == -1"  class="fa fa-plus-square"></i>
-                <i v-else="openDetails.indexOf(cervejaria.id) > -1"  class="fa fa-minus-square"></i>
+                <i v-if="openDetails.indexOf(cervejaria.id) == -1" v-show="cervejaria.descript != ''"  class="fa fa-plus-square"></i>
+                <i v-else="openDetails.indexOf(cervejaria.id) > -1" v-show="cervejaria.descript != ''"  class="fa fa-minus-square"></i>
               </a>
             </td>
           </tr>
-          <tr v-show="openDetails.indexOf(cervejaria.id) > -1">
+          <tr v-show="openDetails.indexOf(cervejaria.id) > -1 && cervejaria.descript != ''">
             <td colspan="6">{{ cervejaria.descript }}</td>
           </tr>
         </tbody>
