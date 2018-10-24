@@ -1,10 +1,19 @@
+Vue.filter('dateFormat', function(value)
+{
+  // window.console.log(value);
+  return moment(value).format('DD/MM/YYYY HH:mm:ss');
+  // return value;
+});
+
 
 new Vue({
   el: '#beerApp',
 
   data: {
     cervejarias: [],
-    openDetails: []
+    openDetails: [],
+    sortColumn: 'name',
+    sortInverse: false
   },
 
   methods:{
@@ -15,6 +24,27 @@ new Vue({
       }).catch(e => {
         console.log(e)
       })
+    },
+
+    doSort: function(ev, column)
+    {
+      ev.preventDefault();
+      let self = this;
+      let result_ev = ev;
+
+      self.sortColumn = column;
+
+      if(result_ev == true)
+      {
+        self.sortInverse = !self.sortInverse;
+      } else {
+        self.sortInverse = !self.sortInverse;
+      }
+
+      window.console.log(self.sortColumn);
+      window.console.log(self.sortInverse);
+
+
     },
 
     doOpenDetails: function(ev, id)
