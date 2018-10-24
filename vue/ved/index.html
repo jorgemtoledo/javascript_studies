@@ -15,12 +15,17 @@
   <div class="container" id="beerApp">
       <h1>Vue Beer</h1>
 
-      <div class="well">
-        <pre>{{  [$data.sortColumn, $data.sortInverse] }}</pre>
-      </div>
+      <!-- <div class="card card-body bg-light"> -->
+        <!-- <pre>{{  [$data.sortColumn, $data.sortInverse] }}</pre> -->
+        <!-- <pre>{{  [$data.filterTerm] }}</pre> -->
+      <!-- </div><br> -->
 
-      <table class="table table-bordered table-hover table-striped">
-        <thead>
+      <div class="card card-body bg-light">
+        <input v-model="filterTerm" type="text" placeholder="Diite para pesquisar" class="form-control">
+      </div><br>
+
+      <table class="table table-bordered table-hover">
+        <thead class="thead-light">
           <tr>
             <th><a href="#" v-on:click="doSort($event, 'name')">Name</a></th>
             <th><a href="#" v-on:click="doSort($event, 'city')">City</a></th>
@@ -36,7 +41,7 @@
             </th>
           </tr>
         </thead>
-        <tbody v-for="cervejaria in cervejarias">
+        <tbody v-for="cervejaria in filteredCervejaria">
 
           <tr>
             <td>{{ cervejaria.name }}</td>
@@ -70,7 +75,6 @@
   <script src="./node_modules/vue-resource/dist/vue-resource.js"></script>
 
   <script src="app.js"></script>
-
 
 </body>
 </html>

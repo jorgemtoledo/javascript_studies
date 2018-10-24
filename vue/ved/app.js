@@ -1,20 +1,33 @@
 Vue.filter('dateFormat', function(value)
 {
+  // Format date
   // window.console.log(value);
   return moment(value).format('DD/MM/YYYY HH:mm:ss');
   // return value;
 });
 
-
 new Vue({
   el: '#beerApp',
 
   data: {
+    filterTerm: '',
     cervejarias: [],
     openDetails: [],
     sortColumn: 'name',
     sortInverse: false
   },
+
+  computed: {
+    filteredCervejaria: function () {
+      var self = this;
+        return this.cervejarias.filter(function (cervejaria) {
+            return cervejaria.name.toLowerCase().indexOf(self.filterTerm.toLowerCase()) >= 0
+            || cervejaria.city.toLowerCase().indexOf(self.filterTerm.toLowerCase()) >= 0
+            || cervejaria.state.toLowerCase().indexOf(self.filterTerm.toLowerCase()) >= 0
+            || cervejaria.country.toLowerCase().indexOf(self.filterTerm.toLowerCase()) >= 0;
+        });
+      }
+    },
 
   methods:{
     list(){
@@ -40,11 +53,8 @@ new Vue({
       } else {
         self.sortInverse = !self.sortInverse;
       }
-
       window.console.log(self.sortColumn);
       window.console.log(self.sortInverse);
-
-
     },
 
     doOpenDetails: function(ev, id)
@@ -94,6 +104,5 @@ new Vue({
   mounted() {
     this.list();
   }
-
 
 })
