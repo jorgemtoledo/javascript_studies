@@ -10,6 +10,7 @@ new Vue({
   el: '#beerApp',
 
   data: {
+    visibleColumns: ['name', 'last_mod'],
     filterTerm: '',
     cervejarias: [],
     openDetails: [],

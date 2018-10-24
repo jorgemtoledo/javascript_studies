@@ -14,57 +14,84 @@
 
   <div class="container" id="beerApp">
       <h1>Vue Beer</h1>
+      <hr>
 
       <!-- <div class="card card-body bg-light"> -->
         <!-- <pre>{{  [$data.sortColumn, $data.sortInverse] }}</pre> -->
         <!-- <pre>{{  [$data.filterTerm] }}</pre> -->
       <!-- </div><br> -->
 
-      <div class="card card-body bg-light">
-        <input v-model="filterTerm" type="text" placeholder="Diite para pesquisar" class="form-control">
-      </div><br>
+      <div class="row">
+        <div class="col-md-2">
+          <div class="card card-body bg-light">
+            <label>Colunas visiveis</label>
+            <select v-model="visibleColumns" class="form-control" multiple>
+              <option value="name">Name</option>
+              <option value="city">City</option>
+              <option value="state">State</option>
+              <option value="country">Country</option>
+              <option value="last_mod">Atualizado</option>
+            </select>
+          </div>
+        </div>
 
-      <table class="table table-bordered table-hover">
-        <thead class="thead-light">
-          <tr>
-            <th><a href="#" v-on:click="doSort($event, 'name')">Name</a></th>
-            <th><a href="#" v-on:click="doSort($event, 'city')">City</a></th>
-            <th><a href="#" v-on:click="doSort($event, 'state')">State</a></th>
-            <th><a href="#" v-on:click="doSort($event, 'country')">Country</a></th>
-            <th><a href="#" v-on:click="doSort($event, 'last_mod')">Atualizado</a></th>
-            <th width="1%" nowrap>
-              <a href="#"  v-on:click="doOpenAllDetails">
-                <!-- <i class="fa fa-plus-square"></i> -->
-                <i v-if="openDetails.length > 0"  class="fa fa-minus-square"></i>
-                <i v-else  class="fa fa-plus-square"></i>
-              </a>
-            </th>
-          </tr>
-        </thead>
-        <tbody v-for="cervejaria in filteredCervejaria">
 
-          <tr>
-            <td>{{ cervejaria.name }}</td>
-            <td>{{ cervejaria.city }}</td>
-            <td>{{ cervejaria.state }}</td>
-            <td>{{ cervejaria.country }}</td>
-            <td>{{ cervejaria.last_mod | dateFormat }}</td>
-            <td>
-              <a href="#"  v-show="cervejaria.descript == ''">
-                <i class="fa fa-plus-square" style="opacity:0.3"></i>
-              </a>
-              <a href="#"  v-on:click="doOpenDetails($event, cervejaria.id)">
-                <!-- <i class="fa fa-plus-square"></i> -->
-                <i v-if="openDetails.indexOf(cervejaria.id) == -1" v-show="cervejaria.descript != ''"  class="fa fa-plus-square"></i>
-                <i v-else="openDetails.indexOf(cervejaria.id) > -1" v-show="cervejaria.descript != ''"  class="fa fa-minus-square"></i>
-              </a>
-            </td>
-          </tr>
-          <tr v-show="openDetails.indexOf(cervejaria.id) > -1 && cervejaria.descript != ''">
-            <td colspan="6">{{ cervejaria.descript }}</td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="col-md-10">
+
+          <div class="card card-body bg-light">
+            <input v-model="filterTerm" type="text" placeholder="Diite para pesquisar" class="form-control">
+          </div><br>
+
+          <table class="table table-bordered table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th v-show="visibleColumns.indexOf('name') > -1"><a href="#" v-on:click="doSort($event, 'name')">Name</a></th>
+                  <th v-show="visibleColumns.indexOf('city') > -1"><a href="#" v-on:click="doSort($event, 'city')">City</a></th>
+                  <th v-show="visibleColumns.indexOf('state') > -1"><a href="#" v-on:click="doSort($event, 'state')">State</a></th>
+                  <th v-show="visibleColumns.indexOf('country') > -1"><a href="#" v-on:click="doSort($event, 'country')">Country</a></th>
+                  <th v-show="visibleColumns.indexOf('last_mod') > -1"><a href="#" v-on:click="doSort($event, 'last_mod')">Atualizado</a></th>
+                  <th width="1%" nowrap>
+                    <a href="#"  v-on:click="doOpenAllDetails">
+                      <!-- <i class="fa fa-plus-square"></i> -->
+                      <i v-if="openDetails.length > 0"  class="fa fa-minus-square"></i>
+                      <i v-else  class="fa fa-plus-square"></i>
+                    </a>
+                  </th>
+                </tr>
+              </thead>
+              <tbody v-for="cervejaria in filteredCervejaria">
+
+                <tr>
+                  <td v-show="visibleColumns.indexOf('name') > -1" >{{ cervejaria.name }}</td>
+                  <td v-show="visibleColumns.indexOf('city') > -1" >{{ cervejaria.city }}</td>
+                  <td v-show="visibleColumns.indexOf('state') > -1" >{{ cervejaria.state }}</td>
+                  <td v-show="visibleColumns.indexOf('country') > -1" >{{ cervejaria.country }}</td>
+                  <td v-show="visibleColumns.indexOf('last_mod') > -1" >{{ cervejaria.last_mod | dateFormat }}</td>
+                  <td>
+                    <a href="#"  v-show="cervejaria.descript == ''">
+                      <i class="fa fa-plus-square" style="opacity:0.3"></i>
+                    </a>
+                    <a href="#"  v-on:click="doOpenDetails($event, cervejaria.id)">
+                      <!-- <i class="fa fa-plus-square"></i> -->
+                      <i v-if="openDetails.indexOf(cervejaria.id) == -1" v-show="cervejaria.descript != ''"  class="fa fa-plus-square"></i>
+                      <i v-else="openDetails.indexOf(cervejaria.id) > -1" v-show="cervejaria.descript != ''"  class="fa fa-minus-square"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr v-show="openDetails.indexOf(cervejaria.id) > -1 && cervejaria.descript != ''">
+                  <td colspan="6">{{ cervejaria.descript }}</td>
+                </tr>
+              </tbody>
+          </table>
+
+        </div>
+
+
+      </div>
+
+
+
+
   </div>
 
   <script src="./node_modules/jquery/dist/jquery.js"></script>
