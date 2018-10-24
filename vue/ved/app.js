@@ -40,6 +40,18 @@ new Vue({
       })
     },
 
+    doResetAll: function()
+    {
+      let self = this;
+
+      self.Vue.set('tvisibleColumns', ['name', 'last_mod']);
+      // self.Vue.set('filterTerm', '');
+      // self.Vue.set('cervejarias', []);
+      // self.Vue.set('openDetails', []);
+      // self.Vue.set('sortColumn', 'name');
+      // self.Vue.set('sortInverse', false);
+    },
+
     doSort: function(ev, column)
     {
       ev.preventDefault();
