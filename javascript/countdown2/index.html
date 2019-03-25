@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>PomodorTracker</title>
+  <link rel="stylesheet" href="sticky-footer-navbar.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body onload="start();">
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">PomodorTracker</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Begin page content -->
+  <main role="main" class="container">
+
+    <h1 class="mt-5">Teste PomodorTracker</h1>
+    <!-- <div id="examplecontent"></div> -->
+
+    <div class="card" style="width:400px">
+      <div class="card-body text-center">
+        <div class="timer-time timer-container">
+          <div id="tempo"></div>
+          <!-- <div id="numberCountdown"></div> -->
+        </div>
+      </div>
+      <div class="card-footer text-center">
+        <button id="restartButton" class="btn btn-warning btn-lg" type="submit" onclick="onResetTimer()">
+          <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span> Reset
+        </button>
+        <button id="startButton" class="btn btn-primary btn-lg" type="submit" onclick="onStartTimer()">
+          <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Start
+        </button>
+        <button id="stopButton" class="btn btn-danger btn-lg" type="submit" onclick="onStopTimer()">
+          <span class="glyphicon glyphicon-stop" aria-hidden="true"></span> Stop
+        </button>
+      </div>
+    </div>
+
+
+
+  </main>
+
+  <footer class="footer bg-dark ">
+    <div class="container">
+      <span class="text-muted">Footer</span>
+    </div>
+  </footer>
+  <script>
+    var count = new Number();
+    var count = 11;
+    function start(){
+      if((count - 1) >= 0){
+        count -= 1;
+        if (count == 0) {
+          count = "Atualizado";
+        } else if (count < 10) {
+          count = "0" + count;
+        }
+        tempo.innerText=count;
+        setTimeout('start();',1000);
+      }
+    }
+
+  </script>
+
+
+  <!-- <BODY onload=startCountdown()> -->
+    <script>
+      var g_iCount = new Number();
+      var g_iCount = 30;
+      function startCountdown() {
+        if ((g_iCount - 1) >= 0) {
+          g_iCount = g_iCount - 1;
+          numberCountdown.innerText = '00:00.0' + g_iCount;
+          setTimeout('startCountdown()', 1000);
+        }
+      }
+    </script>
+
+
+
+  <!-- <script type="text/javascript" src="script.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
